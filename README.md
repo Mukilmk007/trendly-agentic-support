@@ -45,34 +45,6 @@ POST /reset
 
 
 
-## Project Structure
-
-trendly-agent/
-│
-├── app/
-│   ├── controllers/
-│   ├── routes/
-│   ├── services/
-│   ├── state/
-│   └── tools/
-│
-├── data/
-│
-├── static/
-│   ├── index.html
-│   ├── style.css
-│   └── script.js
-│
-├── tests/
-│
-├── main.py
-├── requirements.txt
-├── README.md
-├── PROMPTS.md
-├── SOLUTION.md
-└── .env.example
-
-
 ## Technology Stack
 
 ### Backend
@@ -143,3 +115,123 @@ The assistant stores:
 This enables accurate multi-turn conversations.
 
 
+## Supported Customer Queries
+
+The assistant supports scenarios such as:
+
+* Where is my order?
+* Track order by ID
+* Can I return my order?
+* Return eligibility
+* Refund timeline
+* Return policy
+* Exchange policy
+* Talk to a human
+
+## Installation
+
+### Clone the repository.
+
+git clone https://github.com/Mukilmk007/trendly-agentic-support
+
+### Move into the project.
+
+trendly-agentic-support
+
+### Create a virtual environment.
+
+python -m venv .venv
+
+#### Activate it.
+
+### macOS/Linux
+
+source .venv/bin/activate
+
+### Windows
+
+.venv\Scripts\activate
+
+### Install dependencies.
+
+pip install -r requirements.txt
+
+
+
+
+## Environment Variables
+
+Create a .env file in the project root.
+
+GEMINI_API_KEY=your_api_key_here
+
+
+## Running the Application
+
+### tart the FastAPI server.
+
+uvicorn main:app --reload
+
+
+### Open the application.
+
+http://127.0.0.1:8000
+
+
+
+## Example Conversation
+
+#### User:
+Where is my order TR-4521?
+
+#### Assistant:
+Your order TR-4521 is currently in transit with BlueDart and is expected to arrive on July 31, 2026.
+
+#### User:
+Can I return it?
+
+#### Assistant:
+Since the order has not yet been delivered, it is not currently eligible for return.
+
+
+
+## AI Usage
+
+Google Gemini is used for two primary responsibilities:
+
+### Planning
+
+The planner analyzes customer intent and decides which business tools should be executed.
+
+### Response Generation
+
+The response model produces natural language answers using only grounded information from executed tools and conversation state.
+
+The language model never directly accesses business data; all factual information is retrieved through dedicated tools.
+
+
+## Design Principles
+
+* Separation of reasoning and execution
+* Grounded AI responses
+* Minimal hallucination risk
+* Modular tool architecture
+* Conversation-aware interactions
+* Easy extensibility
+
+## Troubleshooting
+
+### API key errors
+
+Ensure the .env file exists and contains a valid Gemini API key.
+
+### Module not found
+
+Install all dependencies:
+
+pip install -r requirements.txt
+
+
+## Frontend not loading
+
+Ensure the FastAPI server is running and that the static directory is present.
