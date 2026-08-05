@@ -1,0 +1,1 @@
+# Trendly Agentic Support Assistant
