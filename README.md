@@ -133,35 +133,62 @@ The assistant supports scenarios such as:
 * Talk to a human
 
 
-## Installation
+## Quick Start
+
+### Prerequisites
+
+- Python 3.11+
+- A Google Gemini API key
 
 ### Clone the repository
 
+```bash
 git clone https://github.com/Mukilmk007/trendly-agentic-support
+cd trendly-agentic-support
+```
 
-### Move into the project
+### Create and activate a virtual environment
 
-trendly-agentic-support
+**macOS/Linux**
 
-### Create a virtual environment
-
+```bash
 python -m venv .venv
-
-#### Activate it.
-
-### macOS/Linux
-
 source .venv/bin/activate
+```
 
-### Windows
+**Windows**
 
+```bash
+python -m venv .venv
 .venv\Scripts\activate
+```
 
 ### Install dependencies
 
+```bash
 pip install -r requirements.txt
+```
 
+### Configure environment variables
 
+Create a `.env` file in the project root:
+
+```env
+GEMINI_API_KEY=your_api_key_here
+GEMINI_MODEL=your_model_name
+```
+
+### Start the application
+
+```bash
+uvicorn main:app --reload
+```
+
+### Open the application
+
+Frontend: `http://127.0.0.1:8000`
+
+Base URL: `http://127.0.0.1:8000`
 
 
 ## Environment Variables
@@ -258,3 +285,8 @@ pip install -r requirements.txt
 ## Frontend not loading
 
 Ensure the FastAPI server is running and that the static directory is present.
+
+## Prerequisites
+
+- Python 3.11+
+- Google Gemini API Key
