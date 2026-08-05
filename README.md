@@ -191,26 +191,6 @@ Frontend: `http://127.0.0.1:8000`
 Base URL: `http://127.0.0.1:8000`
 
 
-## Environment Variables
-
-Create a .env file in the project root.
-
-GEMINI_API_KEY=your_api_key_here
-
-
-
-## Running the Application
-
-### Start the FastAPI server.
-
-uvicorn main:app --reload
-
-
-### Open the application.
-
-http://127.0.0.1:8000
-
-
 
 
 ## Example Conversation
