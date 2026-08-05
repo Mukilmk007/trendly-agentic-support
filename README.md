@@ -45,6 +45,7 @@ POST /reset
 
 
 
+
 ## Technology Stack
 
 ### Backend
@@ -66,6 +67,8 @@ POST /reset
 
 * JSON
 * Markdown policy documents
+
+
 
 
 ## Agent Workflow
@@ -115,6 +118,7 @@ The assistant stores:
 This enables accurate multi-turn conversations.
 
 
+
 ## Supported Customer Queries
 
 The assistant supports scenarios such as:
@@ -128,17 +132,18 @@ The assistant supports scenarios such as:
 * Exchange policy
 * Talk to a human
 
+
 ## Installation
 
-### Clone the repository.
+### Clone the repository
 
 git clone https://github.com/Mukilmk007/trendly-agentic-support
 
-### Move into the project.
+### Move into the project
 
 trendly-agentic-support
 
-### Create a virtual environment.
+### Create a virtual environment
 
 python -m venv .venv
 
@@ -152,7 +157,7 @@ source .venv/bin/activate
 
 .venv\Scripts\activate
 
-### Install dependencies.
+### Install dependencies
 
 pip install -r requirements.txt
 
@@ -166,9 +171,10 @@ Create a .env file in the project root.
 GEMINI_API_KEY=your_api_key_here
 
 
+
 ## Running the Application
 
-### tart the FastAPI server.
+### Start the FastAPI server.
 
 uvicorn main:app --reload
 
@@ -176,6 +182,7 @@ uvicorn main:app --reload
 ### Open the application.
 
 http://127.0.0.1:8000
+
 
 
 
@@ -195,6 +202,7 @@ Since the order has not yet been delivered, it is not currently eligible for ret
 
 
 
+
 ## AI Usage
 
 Google Gemini is used for two primary responsibilities:
@@ -210,6 +218,7 @@ The response model produces natural language answers using only grounded informa
 The language model never directly accesses business data; all factual information is retrieved through dedicated tools.
 
 
+
 ## Design Principles
 
 * Separation of reasoning and execution
@@ -219,6 +228,7 @@ The language model never directly accesses business data; all factual informatio
 * Conversation-aware interactions
 * Easy extensibility
 
+
 ## Troubleshooting
 
 ### API key errors
@@ -227,7 +237,7 @@ Ensure the .env file exists and contains a valid Gemini API key.
 
 ### Module not found
 
-Install all dependencies:
+#### Install all dependencies:
 
 pip install -r requirements.txt
 
