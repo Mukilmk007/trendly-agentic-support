@@ -79,28 +79,6 @@ After tool execution, the response model produces a concise customer-facing repl
 
 ---
 
-# ReAct Flow
-
-User Query
-     │
-     ▼
- Reason (Planner)
-     │
-     ▼
- Select Tool(s)
-     │
-     ▼
- Execute Tool(s)
-     │
-     ▼
- Update Memory
-     │
-     ▼
- Generate Response
-     │
-     ▼
- Customer
-
 # Key Trade-offs
 
 ## 1. ReAct vs Single Prompt
