@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const chatBox = document.getElementById("chat-box");
     const messageInput = document.getElementById("message-input");
     const sendButton = document.getElementById("send-btn");
+    let pendingAction = null;
 
     function addMessage(message, sender) {
 
@@ -62,79 +63,98 @@ document.addEventListener("DOMContentLoaded", () => {
 
     async function sendMessage() {
 
-        const message = messageInput.value.trim();
+            let userMessage = messageInput.value.trim();
 
-        if (!message) return;
+            if (!userMessage) return;
 
-        addMessage(message, "user");
+            let message = userMessage;
 
-        messageInput.value = "";
+            if (pendingAction) {
 
-        showTypingIndicator();
+                switch (pendingAction) {
 
-        messageInput.disabled = true;
-        sendButton.disabled = true;
+                    case "track":
 
-        try {
+                        message = `Where is my order ${userMessage}?`;
 
-            console.log("Sending request...");
+                        break;
 
-            const response = await fetch("/chat", {
+                    case "return":
 
-                method: "POST",
+                        message = `Can I return order ${userMessage}?`;
 
-                headers: {
-                    "Content-Type": "application/json"
-                },
+                        break;
 
-                body: JSON.stringify({
-                    message: message
-                })
+                    case "exchange":
 
-            });
+                        message = `Can I exchange order ${userMessage}?`;
 
-            console.log("Fetch completed");
+                        break;
+                }
 
-            const data = await response.json();
+                pendingAction = null;
+            }
 
-            console.log("JSON parsed");
+            // Show exactly what the user typed
+            addMessage(userMessage, "user");
 
-            console.log(data);
+            messageInput.value = "";
 
-            hideTypingIndicator();
+            showTypingIndicator();
 
-            addMessage(
-                data.response,
-                "bot"
-            );
+            messageInput.disabled = true;
+            sendButton.disabled = true;
 
-            console.log("Bot message added");
+            try {
+
+                const response = await fetch("/chat", {
+
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: message
+                    })
+
+                });
+
+                const data = await response.json();
+
+                hideTypingIndicator();
+
+                addMessage(
+                    data.response,
+                    "bot"
+                );
+
+            }
+
+            catch (error) {
+
+                hideTypingIndicator();
+
+                addMessage(
+                    "Sorry, something went wrong.",
+                    "bot"
+                );
+
+                console.error(error);
+
+            }
+
+            finally {
+
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+
+                messageInput.focus();
+
+            }
 
         }
-
-        catch (error) {
-
-            hideTypingIndicator();
-
-            addMessage(
-                "Sorry, something went wrong.",
-                "bot"
-            );
-
-            console.error(error);
-
-        }
-
-        finally {
-
-            messageInput.disabled = false;
-            sendButton.disabled = false;
-
-            messageInput.focus();
-
-        }
-
-    }
 
     sendButton.addEventListener(
         "click",
@@ -146,6 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "click",
         resetConversation
     );
+    
 
     messageInput.addEventListener(
         "keydown",
@@ -164,6 +185,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "👋 Hi! I'm Nova. How can I help you today?",
         "bot"
     );
+    showQuickActions();
     async function resetConversation() {
 
     try {
@@ -186,12 +208,132 @@ document.addEventListener("DOMContentLoaded", () => {
             "👋 Hi! I'm Nova. How can I help you today?",
             "bot"
         );
-
+        showQuickActions();
         messageInput.value = "";
 
         messageInput.focus();
 
     }
-    
+    function showQuickActions() {
+
+            const row = document.createElement("div");
+
+            row.className = "message-row bot";
+
+            row.innerHTML = `
+                <div class="quick-actions">
+
+                    <button class="quick-btn" data-action="track">
+                        Track Order
+                    </button>
+
+                    <button class="quick-btn" data-action="return">
+                        Return Item
+                    </button>
+
+                    <button class="quick-btn" data-action="exchange">
+                        Exchange Item
+                    </button>
+
+                    <button class="quick-btn" data-action="refund">
+                        Refund Policy
+                    </button>
+
+                    <button class="quick-btn" data-action="human">
+                        Talk to Human
+                    </button>
+
+                </div>
+            `;
+
+            chatBox.appendChild(row);
+
+            attachQuickButtonEvents();
+
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+        function attachQuickButtonEvents() {
+
+        document.querySelectorAll(".quick-btn").forEach(button => {
+
+           button.onclick = () => {
+
+                const quickActions = document.querySelector(".quick-actions");
+
+                        if (quickActions) {
+                            quickActions.parentElement.remove();
+                        }
+
+                        const action = button.dataset.action;
+
+                switch (action) {
+
+                    case "track":
+
+                        pendingAction = "track";
+
+                        addMessage(
+                            "Sure! Please enter your Order ID.",
+                            "bot"
+                        );
+
+                        messageInput.placeholder = "Enter your Order ID...";
+
+                        messageInput.focus();
+
+                        break;
+
+                    case "return":
+
+                        pendingAction = "return";
+
+                        addMessage(
+                            "Sure! Please enter your Order ID so I can check whether it's eligible for return.",
+                            "bot"
+                        );
+
+                        messageInput.placeholder = "Enter your Order ID...";
+
+                        messageInput.focus();
+
+                        break;
+
+                    case "exchange":
+
+                        pendingAction = "exchange";
+
+                        addMessage(
+                            "Sure! Please enter your Order ID so I can check whether it's eligible for exchange.",
+                            "bot"
+                        );
+
+                        messageInput.placeholder = "Enter your Order ID...";
+
+                        messageInput.focus();
+
+                        break;
+
+                    case "refund":
+
+                        messageInput.value = "What is your refund policy?";
+
+                        sendMessage();
+
+                        break;
+
+                    case "human":
+
+                        messageInput.value = "I want to talk to a human.";
+
+                        sendMessage();
+
+                        break;
+                }
+
+            };
+
+        });
+
+    }
 
 });

@@ -10,7 +10,7 @@ class LookupOrderTool:
 
     def run(self, arguments: dict):
 
-        order_id = arguments.get("order_id")
+        order_id = arguments.get("order_id", "").strip().upper()
 
         if not order_id:
             return {

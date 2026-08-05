@@ -124,27 +124,41 @@ class GeminiService:
 
 
     def generate_response(
-        self,
-        user_message: str,
-        observations,
-        state
-    ) -> str:
+            self,
+            user_message: str,
+            observations,
+            state
+        ) -> str:
 
-        prompt = f"""
-    User Question:
-    {user_message}
+            prompt = f"""
+        Conversation History:
+        {json.dumps(state.get_recent_history(), indent=2)}
 
-    Tool Results:
-    {json.dumps(observations, indent=2)}
+        Current Order:
+        {json.dumps(state.current_order, indent=2)}
 
-    Write a concise, friendly customer support response.
+        Current Policy:
+        {json.dumps(state.current_policy, indent=2)}
 
-    Use ONLY the tool results above.
-    Do not invent any information.
-    """
+        Tool Results:
+        {json.dumps(observations, indent=2)}
 
-        return self.generate_text(
-            system_prompt=RESPONSE_SYSTEM_PROMPT,
-            user_prompt=prompt,
-            temperature=0.2
-        )
+        Latest User Message:
+        {user_message}
+
+        Instructions:
+
+        - Use Current Order whenever it contains the required information.
+        - Use Current Policy whenever it contains the required information.
+        - Use Tool Results if a tool was executed in this turn.
+        - If the answer exists in Current Order or Current Policy, answer directly.
+        - Do NOT say you don't know if the information already exists.
+        - Never invent information that is not present.
+        - Respond in a concise, friendly customer support style.
+        """
+
+            return self.generate_text(
+                system_prompt=RESPONSE_SYSTEM_PROMPT,
+                user_prompt=prompt,
+                temperature=0.2
+            )
