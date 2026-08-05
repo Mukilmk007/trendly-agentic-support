@@ -229,6 +229,19 @@ The language model never directly accesses business data; all factual informatio
 * Easy extensibility
 
 
+## Guardrails
+
+To improve reliability and reduce incorrect responses, the assistant implements the following guardrails:
+
+* Tool-First Responses: The assistant retrieves factual information (such as order details and company policies) through dedicated tools instead of relying on the language model’s memory.
+* Conversation Memory: The current order and retrieved policy are stored in conversation state, allowing follow-up questions (for example, “What was the payment method?”) to be answered without performing unnecessary lookups.
+* Policy-Based Decisions: Return, exchange, and refund responses are generated only from the official Trendly policy document, ensuring consistent and accurate answers.
+* No Hallucinations: If the requested information is unavailable in the current conversation state or tool results, the assistant does not fabricate an answer and instead informs the user or requests additional information.
+* Input Normalization: Order IDs are normalized before lookup (for example, tr-4530, Tr-4530, and TR-4530 are all treated as TR-4530) to improve user experience.
+* Human Escalation: Requests that require human assistance or cannot be confidently resolved are escalated using the dedicated escalation tool, along with a summary of the conversation context.
+* Minimal Tool Usage: The planner avoids redundant tool calls by reusing information already stored in the conversation state, improving both response time and efficiency.
+
+
 ## Troubleshooting
 
 ### API key errors
