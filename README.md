@@ -270,3 +270,11 @@ Ensure the FastAPI server is running and that the static directory is present.
 
 - Python 3.11+
 - Google Gemini API Key
+
+### Live URL
+
+```
+
+https://trendly-agentic-support-qa52.onrender.com/
+
+```
