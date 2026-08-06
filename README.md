@@ -2,7 +2,7 @@
 
 ## Overview
 
-Trendly AI is an intelligent customer support assistant built for Trendly, a direct-to-consumer fashion retailer. The assistant leverages an Agentic ReAct workflow to reason about customer requests, invoke specialized tools when required, and generate grounded, context-aware responses.
+Trendly AI is an intelligent customer support assistant built for Trendly, a direct to consumer fashion retailer. The assistant leverages an Agentic ReAct workflow to reason about customer requests, invoke specialized tools when required, and generate grounded, context aware responses.
 
 Unlike a traditional chatbot that relies solely on a language model, Trendly AI separates reasoning from tool execution, allowing it to retrieve factual order information, consult company policies, evaluate return eligibility, and escalate conversations when appropriate.
 
@@ -10,15 +10,15 @@ The project demonstrates how Large Language Models can be combined with determin
 
 ## Features
 
-* Multi-turn conversations with contextual memory
-* ReAct-style planning and reasoning
+* Multi turn conversations with contextual memory
+* ReAct style planning and reasoning
 * Order lookup using structured data
 * Return policy retrieval
 * Return eligibility verification
 * Human support escalation
 * Grounded responses based on tool outputs
 * Responsive chat interface
-* WhatsApp-style typing indicator
+* WhatsApp style typing indicator
 * Reset conversation functionality
 * FastAPI REST backend
 * Modern HTML/CSS/JavaScript frontend
@@ -100,7 +100,7 @@ Examples include:
 
 4. Response Generation
 
-Gemini generates the final customer-facing response using:
+Gemini generates the final customer facing response using:
 
 * Conversation history
 * Tool outputs
@@ -115,7 +115,7 @@ The assistant stores:
 * Retrieved policies
 * Tool observations
 
-This enables accurate multi-turn conversations.
+This enables accurate multi turn conversations.
 
 
 
@@ -232,7 +232,7 @@ The language model never directly accesses business data; all factual informatio
 * Grounded AI responses
 * Minimal hallucination risk
 * Modular tool architecture
-* Conversation-aware interactions
+* Conversation aware interactions
 * Easy extensibility
 
 
@@ -240,9 +240,9 @@ The language model never directly accesses business data; all factual informatio
 
 To improve reliability and reduce incorrect responses, the assistant implements the following guardrails:
 
-* Tool-First Responses: The assistant retrieves factual information (such as order details and company policies) through dedicated tools instead of relying on the language model’s memory.
-* Conversation Memory: The current order and retrieved policy are stored in conversation state, allowing follow-up questions (for example, “What was the payment method?”) to be answered without performing unnecessary lookups.
-* Policy-Based Decisions: Return, exchange, and refund responses are generated only from the official Trendly policy document, ensuring consistent and accurate answers.
+* Tool First Responses: The assistant retrieves factual information (such as order details and company policies) through dedicated tools instead of relying on the language model’s memory.
+* Conversation Memory: The current order and retrieved policy are stored in conversation state, allowing follow up questions (for example, “What was the payment method?”) to be answered without performing unnecessary lookups.
+* Policy Based Decisions: Return, exchange, and refund responses are generated only from the official Trendly policy document, ensuring consistent and accurate answers.
 * No Hallucinations: If the requested information is unavailable in the current conversation state or tool results, the assistant does not fabricate an answer and instead informs the user or requests additional information.
 * Input Normalization: Order IDs are normalized before lookup (for example, tr-4530, Tr-4530, and TR-4530 are all treated as TR-4530) to improve user experience.
 * Human Escalation: Requests that require human assistance or cannot be confidently resolved are escalated using the dedicated escalation tool, along with a summary of the conversation context.

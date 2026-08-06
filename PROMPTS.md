@@ -7,7 +7,7 @@ Trendly AI uses Google Gemini for two distinct tasks:
 1. Planning (Reasoning)
 2. Response Generation
 
-Separating these responsibilities improves reliability by allowing the model to first decide *what to do* before generating a customer-facing response.
+Separating these responsibilities improves reliability by allowing the model to first decide *what to do* before generating a customer facing response.
 
 ---
 
@@ -22,7 +22,7 @@ Determine:
 - Which tool(s) to execute
 - Tool arguments
 
-The planner never generates customer-facing text.
+The planner never generates customer facing text.
 
 Instead, it produces structured JSON that drives the ReAct workflow.
 
@@ -90,7 +90,7 @@ Example instruction:
 
 ### Problem
 
-Follow-up questions failed.
+Follow up questions failed.
 
 Example:
 
@@ -124,7 +124,7 @@ The response prompt was updated to include:
 
 The instructions explicitly tell the model to answer from the conversation state whenever the required information already exists.
 
-This eliminated unnecessary tool calls while enabling accurate multi-turn conversations.
+This eliminated unnecessary tool calls while enabling accurate multi turn conversations.
 
 ---
 
@@ -180,7 +180,7 @@ The assistant is instructed to produce short, friendly customer support replies 
 
 # Prompting Strategy
 
-The project follows a ReAct-style workflow:
+The project follows a ReAct style workflow:
 
 User Message
 
