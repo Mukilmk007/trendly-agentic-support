@@ -278,3 +278,5 @@ Ensure the FastAPI server is running and that the static directory is present.
 https://trendly-agentic-support-qa52.onrender.com/
 
 ```
+
+> **Note:** The application is hosted on Render's free tier. The first request may take approximately 30–60 seconds due to a cold start. Subsequent requests are significantly faster.
